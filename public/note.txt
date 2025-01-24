@@ -1,0 +1,91 @@
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+Vue.use(Vuex)
+
+export default new Vuex.Store({
+  state: {
+    hMax: null,
+    hMin: null,
+    load: null,
+    mt: null,
+    mc: null,
+    fg: null,
+    he: null,
+  },
+  mutations: {
+    updateHMax(state, value) {
+      state.hMax = value
+    },
+    updateHMin(state, value) {
+      state.hMin = value
+    },
+    updateLoad(state, value) {
+      state.load = value
+    },
+    updateMt(state, value) {
+      state.mt = value
+    },
+    updateMc(state, value) {
+      state.mc = value
+    },
+    updateFg(state, value) {
+      state.fg = value
+    },
+    updateHe(state, value) {
+      state.he = value
+    },
+  },
+  actions: {
+    updateInputs({ commit }, payload) {
+      commit('updateHMax', payload.hMax)
+      commit('updateHMin', payload.hMin)
+      commit('updateLoad', payload.load)
+      commit('updateMt', payload.mt)
+      commit('updateMc', payload.mc)
+      commit('updateFg', payload.fg)
+      commit('updateHe', payload.he)
+    },
+  },
+})
+
+methods: {
+  // ...
+  navigateToNextPage() {
+    if (this.checkValidInputs1() && this.checkValidInputs2()) {
+      // Navigate to the next page
+      this.$router.push({ name: 'next-page' });
+    }
+  }
+}
+
+
+how to show user inputs 
+
+<h5 style="color: red;">hello</h5>
+      <ul>
+      <li>Max Height (hMax): {{ getUserInput.hMax }}</li>
+      <li>Min Height (hMin): {{ getUserInput.hMin }}</li>
+      <li>Load (load): {{ getUserInput.load }}</li>
+      <li>Table Mass (mt): {{ getUserInput.mt }}</li>
+      <li>Charge Mass (mc): {{ getUserInput.mc }}</li>
+      <li>Bra FG (fg): {{ getUserInput.fg }}</li>
+      <li>Bra HE (he): {{ getUserInput.he }}</li>
+      <li>TN: {{ getUserInput.tn }}</li>
+      <li>UN: {{ getUserInput.un }}</li>
+      <li>VM: {{ getUserInput.vm }}</li>
+      <li>WM: {{ getUserInput.wm }}</li>
+
+    validateForm() {
+    console.log('hMax :', this.hMax);
+    console.log('hMin :', this.hMin);
+    console.log('load :', this.load);
+    console.log('mt :', this.mt);
+    console.log('mc :', this.mc);
+    console.log('fg :', this.fg);
+    console.log('he :', this.he);
+    console.log('tn :', this.tn);
+    console.log('un :', this.un);
+    console.log('vm :', this.vm);
+    console.log('wm :', this.wm);
+  },
