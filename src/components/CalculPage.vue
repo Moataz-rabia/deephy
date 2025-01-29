@@ -46,7 +46,7 @@
       <button @click="navigateToNextPage">next</button>
       <p id="p3"></p>      
     </div>
-      
+      <!-- Affichage des données sauvegardées dans store.js -->
     <p>Valeurs sauvegardées :</p>
     <p>lb : {{ $store.state.lb }}</p>
     <p>hMax : {{ $store.state.hMax }}</p>
@@ -132,6 +132,7 @@ import { mapActions, mapGetters } from 'vuex'
         if (!this.checkValidInputs2()) {
           return;
         }
+        /* Mise à jour des données dans le store */
         this.updateInputs( {
         lb:this.lb,
         hMax: this.hMax,
@@ -150,9 +151,14 @@ import { mapActions, mapGetters } from 'vuex'
 });
         document.getElementById('p2').innerHTML='<p style="color:green"> BIEN</p>';
       },
+      // Méthode pour naviguer vers la page suivante
       navigateToNextPage() {
         if (this.checkValidInputs1() && this.checkValidInputs2()) {
-          // Navigate to the next page
+          /**
+           * Cette fonction push permet de naviguer vers une autre route.
+           * Remarque : Vous pouvez remplacer 'name' par 'path' pour spécifier la route.
+           */
+          
           this.$router.push({ name: 'next' });
         }
         else{

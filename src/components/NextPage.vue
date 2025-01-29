@@ -59,11 +59,11 @@
                 <label for="ph">M:</label><input type="radio" v-model="selectpoint" id="pm" name="p" value="pm">
                 <label for="ph">N:</label><input type="radio" v-model="selectpoint" id="pn" name="p" value="pn">
 
-               </div>
+              </div>
                 <p>Result: {{ resultpoint }}</p>
                 <button class="calculate" @click="calculepoints">Calculer</button>
                 <button class="cancel" @click="cancelverin">Annuler</button>
-            </div>
+              </div>
         </div>
     
     </div>
@@ -85,8 +85,7 @@ export default {
       result: '',
       resulteffort:'',
       resultverin:'',
-      hd:'',
-      storedhd:'',
+      hd:765,
       resultangle:'',
       resultpoint:'',
       yd:0,
@@ -97,6 +96,9 @@ export default {
       yn:0
     };
 },
+/**
+ * Cette méthode permet d'importer les données à partir du store.
+ */
   computed: {
     ...mapGetters({
       lb:'getlb',
@@ -116,6 +118,7 @@ export default {
     }),
   },
   methods: {
+    /* Cette fonction vérifie la valeur de HD. Si HD dépasse HMax, elle remplace HD par HMax. De même, si HD est inférieur à HMin, elle remplace HD par HMin. */
     hdvaleur() {
     if(this.hd===''){
       alert(' saisir valeur');
@@ -158,6 +161,7 @@ export default {
       this.selectedweight = '';
       this.result = '';
     },
+  
     /* here i make some local variables to store  */
     calculeefforts(){
       let rgf,rhf,fgf,fhf;
@@ -195,13 +199,7 @@ export default {
         this.resulteffort='';
     },
 
-    calculeverin(){
-        this.resultverin=` verin est : ${Math.sqrt((this.xn-this.xm)**2+(this.yn-this.ym)**2)}`;
-    },
-
-    cancelverin(){
-        this.resultverin='';
-    },
+   
 
     calculerangle(){
       let anglealpha;
@@ -210,10 +208,10 @@ export default {
         this.resultangle=`angle alpha est ${Math.asin(anglealpha)} `;
       } 
       else if(this.selecteangle==='beta'){
-        this.resultangle=`angle beta est ${Math.atan2(this.pxn-this.pxm,this.pyn-this.pym)}`
+        this.resultangle=`angle beta est ${Math.atan2(this.xn-this.ptxm,this.yn-this.ptym)}`
       }
       else {
-        this.resultangle = 'choisir un angle option ';
+        this.resultangle = 'choisir un angle';
       }
     },
     cancelangle(){
@@ -221,32 +219,48 @@ export default {
     },
     calculepoints(){
       let ptxg,ptyg,ptxe,ptyh,ptxk,ptyk,ptxm,ptym;
+
+      /* calcule de point D */
       if(this.selectpoint==='pd'){
         this.resultpoint=`coordonnées de point D (${this.xd}),(${this.xd})`;
       }
+      /* calcule de point E */
+
       else if(this.selectpoint==='pe'){
         ptxe=(this.lb)*Math.cos(this.anglealpha);
-        this.resultpoint=`coordonnées de point E (${ptxe,this.ye})`;
+        this.resultpoint=`coordonnées de point E (${ptxe}),(${this.ye})`;
       }
+      /* calcule de point K */
+
       else if(this.selectpoint==='pk'){
         ptxk=ptxe/2;
         ptyk=this.hd/2;
-        this.resultpoint=`coordonnées de point K (${ptxk,ptyk})`;
+        this.resultpoint=`coordonnées de point K (${ptxk}),(${ptyk})`;
       }
+      /* calcule de point H */
+
       else if(this.selectpoint==='ph'){
         ptyh=this.hd;
-        this.resultpoint=`coordonnées de point H (${ptyh})`;
+        this.resultpoint=`coordonnées de point H (${this.xh}),(${ptyh})`;
       }
+      /* calcule de point G */
+      
       else if(this.selectpoint==='pg'){
         ptxg=ptxe;
         ptyg=this.hd;
         this.resultpoint=`coordonnées de point G (${ptxg,ptyg})`;
       }
+      /* calcule de point M */
+
       else if(this.selectpoint==='pm'){
         ptxm=this.vm*Math.cos(-this.anglealpha)-this.wm*Math.sin(-this.anglealpha);
         ptym=ptyh+this.vm*Math.sin(-this.anglealpha)+this.wm*Math.cos(-this.anglealpha);
-        this.resultpoint=`coordonnées de point M (${ptxm,ptym})`;
+        this.resultpoint=`coordonnées de point M (${ptxm,ptym}) <br>  `;
       }
+      else if(this.selectpoint==='pn'){
+        this.resultpoint=`coordonnées de point N (${this.xn},${this.yn}) <br> formule :  `;
+      }
+      
     }
   }
 };

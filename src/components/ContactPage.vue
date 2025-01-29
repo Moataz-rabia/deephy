@@ -21,6 +21,7 @@
     </div>
 </template>
 <script>
+/* importation de API emailJS */
 import emailjs from '@emailjs/browser';
 export default{
     name:'ContactPage',
@@ -36,6 +37,7 @@ export default{
     mounted() {
     emailjs.init('p88PbAB0f0dm0Yq_8'); // Replace with your actual public key
   },
+  /* ici j'utilise un API emailJS  pour envoyer les données a mon email . */
   methods:{
     sendEmail() {
       const templateParams = {

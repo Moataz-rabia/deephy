@@ -5,6 +5,7 @@ import AboutPage from '@/components/AboutPage.vue'
 import CalculPage from '@/components/CalculPage.vue'
 import ContactPage from '@/components/ContactPage.vue'
 import NextPage from '@/components/NextPage.vue'
+import libraryPage from '@/components/libraryPage.vue'
 const router = createRouter({
 	history: createWebHistory(),
 	routes: [
@@ -32,6 +33,10 @@ const router = createRouter({
 			path:'/NextPage',
 			name:'next',
 			component: NextPage
+		},
+		{
+			path:'/libraryPage',
+			component: libraryPage
 		},
 
 	],

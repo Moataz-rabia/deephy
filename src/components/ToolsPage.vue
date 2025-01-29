@@ -47,6 +47,7 @@
   </template>
 <script>
 export default {
+  name:'toolsPage',
   data() {
     return {
       value: '',
@@ -59,7 +60,6 @@ export default {
     convert() {
       if (this.value && this.fromUnit && this.toUnit) {
         let result;
-
         switch (this.fromUnit) {
           case 'length-meter':
             switch (this.toUnit) {
