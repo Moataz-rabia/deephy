@@ -89,3 +89,151 @@ how to show user inputs
     console.log('vm :', this.vm);
     console.log('wm :', this.wm);
   },
+
+
+
+
+  <template>
+  <div id="app" class="container">
+    <div class="form1">
+      <h1>Saisir les valeurs de client</h1>
+      <button @click="toggleClientInputs">Client Inputs</button>
+      <div v-if="showClientInputs" class="client-inputs">
+        <label for="h_max">Max Height (h_max):</label>
+        <input type="number" id="h_max" v-model.number="hMax" placeholder="Enter max height" />
+        <label for="h_min">Min Height (h_min):</label>
+        <input type="number" id="h_min" v-model.number="hMin" placeholder="Enter min height" />
+        <label for="load">Load (N):</label>
+        <input type="number" id="load" v-model.number="load" placeholder="Enter load in Newtons" />
+        <button @click="calculate">valider</button>
+        <p style="margin-top: 20px; text-align: center; color: red;font-weight: bolder;" id="p1"></p>
+      </div>
+    </div>
+    <div class="form2">
+      <h1>Saisir les valeurs de l'ingenieur</h1>
+      <button @click="toggleEngineerInputs">Engineer Inputs</button>
+      <div v-if="showEngineerInputs" class="engineer-inputs">
+        <div class="les-masses">
+          <h3>les Masses</h3>
+          <label for="mt">Table Mass (mt): </label><input type="number" name="mt" id="mt" v-model.number="mt" placeholder="saisir valeur de table" />
+          <label for="mc">Charge Mass (mc):</label><input type="number" name="mc" id="mc" v-model.number="mc" placeholder="saisir valeur de charge" />
+          <label for="fg">Bra FG (fg):</label><input type="number" name="fg" id="fg" v-model.number="fg" placeholder="saisir valeur de la bras FG" />
+          <label for="he">Bra HE (he):</label><input type="number" name="he" id="he" v-model.number="he" placeholder="saisir valeur de bras HE" />
+        </div>
+        <div class="position">
+          <h3>les positions</h3>
+          <h4 style="color:#ff6f3f;">pour vérin N dans repère TDU </h4>
+          <label for="tn">TN:</label><input type="number" name="tn" id="tn" v-model.number="tn" placeholder="saisir valeur de TN" />
+          <label for="un">UN:</label><input type="number" name="un" id="un" v-model.number="un" placeholder="saisir valeur de UN" />
+          <h4 style="color:#ff6f3f;">pour vérin M dans repère VHW </h4>
+          <label for="vm">VM:</label><input type="number" name="tn" id="vm" v-model.number="vm" placeholder="saisir valeur de VM" />
+          <label for="wm">WM:</label><input type="number" name="un" id="wm" v-model.number="wm" placeholder="saisir valeur de WM" />
+        </div>
+        <button class="b2" @click="calculate2">valider</button>
+        <p style="margin-top: 20px; text-align: center; color: red;font-weight: bolder;" id="p2"></p>
+      </div>
+    </div>
+    <button @click="navigateToNextPage">next</button>
+    <p>Valeurs sauvegardées :</p>
+    <p>hMax : {{ $store.state.hMax }}</p>
+    <p>hMin : {{ $store.state.hMin }}</p>
+    <p>load : {{ $store.state.load }}</p>
+    <p>mt : {{ $store.state.mt }}</p>
+    <p>mc : {{ $store.state.mc }}</p>
+    <p>fg : {{ $store.state.fg }}</p>
+    <p>he : {{ $store.state.he }}</p>
+    <p>tn : {{ $store.state.tn }}</p>
+    <p>un : {{ $store.state.un }}</p>
+    <p>vm : {{ $store.state.vm }}</p>
+    <p>wm : {{ $store.state.wm }}</p>
+  </div>
+</template>
+
+<script>
+import { mapActions, mapGetters } from 'vuex'
+
+export default {
+  name: "CalculPage",
+  data() {
+    return {
+      hMax: null,
+      hMin: null,
+      load: null,
+      mt: null,
+      mc: null,
+      fg: null,
+      he: null,
+      tn: null,
+      un: null,
+      vm: null,
+      wm: null,
+      showClientInputs: false,
+      showEngineerInputs: false,
+    };
+  },
+  computed: {
+    ...mapGetters(['getUserInput']),
+  },
+  methods: {
+    ...mapActions(['updateInputs']),
+    toggleClientInputs() {
+      this.showClientInputs = !this.showClientInputs;
+    },
+    toggleEngineerInputs() {
+      this.showEngineerInputs = !this.showEngineerInputs;
+    },
+    // ... rest of your code
+  }
+}
+</script>
+
+<style scoped>
+/* ... rest of your styles */
+.client-inputs, .engineer-inputs {
+  transition: max-height 0.5s;
+  overflow: hidden;
+}
+</style>
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('C:\Users\utilisateur\Desktop\deephy\src\assets\b3.jpg') no-repeat center center fixed;
+
+
+
+
+calculepoid() {
+  let ptWeight, pcWeight, pb1Weight, pb2Weight;
+
+  if (this.selectedweight === 'pt') {
+    ptWeight = this.mt * this.g;
+  } else if (this.selectedweight === 'pc') {
+    pcWeight = this.mc * this.g;
+  } else if (this.selectedweight === 'pb1') {
+    pb1Weight = this.fg * this.g;
+  } else if (this.selectedweight === 'pb2') {
+    pb2Weight = this.he * this.g;
+  } else {
+    this.result = 'Please select a weight option.';
+    return;
+  }
+
+  this.result = `Weight (${this.selectedweight}): ${ptWeight || pcWeight || pb1Weight || pb2Weight} N`;
+  this.ptWeight = ptWeight;
+  this.pcWeight = pcWeight;
+  this.pb1Weight = pb1Weight;
+  this.pb2Weight = pb2Weight;
+}
+
+
+
+calculeefforts() {
+  if (this.selectedeffort === 'rg') {
+    this.resulteffort = `effort (RG): ${(-(this.xgt)*this.ptWeight+this.xgc*this.pcWeight)/this.xg} N`;
+  } else if (this.selectedeffort === 'rh') {
+    this.resulteffort = `effort (RH): ${-(this.rg-this.ptWeight-this.pcWeight)} N`;
+  } else if (this.selectedeffort === 'fg') {
+    this.resulteffort = `effort (FG): ${-(this.rg)} N`;
+  } else if (this.selectedeffort === 'fh') {
+    this.resulteffort = `effort (FH): ${'....'} N`;
+  } else {
+    this.resulteffort = 'Please select an effort option.';
+  }
+}

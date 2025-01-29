@@ -5,10 +5,10 @@
       <ul>
         <li><router-link to="/">Home</router-link></li>
         <li><router-link to="/calcul">calcule</router-link></li>
-        <li><router-link to="/tool">Tools</router-link></li>
+        <li><router-link to="/tool">Unit converter</router-link></li>
         <li><router-link to="/About">About</router-link></li>
         <li><router-link to="/contact">contact</router-link></li>
-
+        
       </ul>
     </nav>
   </div>
@@ -52,6 +52,7 @@ nav ul {
 
 nav ul li {
   padding: 20px 20px;
+  text-transform: uppercase;
 }
 
 
@@ -66,19 +67,4 @@ nav ul li a:hover {
   color: #ff6f3f;
 }
 
-.close-btn {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  background: none;
-  border: none;
-  color: white;
-  font-size: 24px;
-  cursor: pointer;
-  transition: color 0.3s;
-}
-
-.close-btn:hover {
-  color: #ff6f3f;
-}
 </style>

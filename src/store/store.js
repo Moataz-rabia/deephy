@@ -3,6 +3,7 @@ import { createStore } from 'vuex';
 
 const store = createStore({
   state: {
+    lb:'',
     hMax: '',
     hMin: '',
     load: '',
@@ -11,11 +12,16 @@ const store = createStore({
     fg: '',
     he: '',
     tn: '',
-    un:'',
-    vm:'',
-    wm:'',
+    un: '',
+    vm: '',
+    wm: '',
+    xgt:'',
+    xgc:''
   },
   mutations: {
+    updatelb(state, value) {
+      state.lb = value;
+    },
     updateHMax(state, value) {
       state.hMax = value;
     },
@@ -49,9 +55,16 @@ const store = createStore({
     updatewm(state, value) {
       state.wm = value;
     },
+    updatexgt(state, value) {
+      state.xgt = value;
+    },
+    updatexgc(state, value) {
+      state.xgc = value;
+    },
   },
   actions: {
     updateInputs({ commit }, payload) {
+      commit('updatelb', payload.lb);
       commit('updateHMax', payload.hMax);
       commit('updateHMin', payload.hMin);
       commit('updateLoad', payload.load);
@@ -63,9 +76,12 @@ const store = createStore({
       commit('updateun', payload.un);
       commit('updatevm', payload.vm);
       commit('updatewm', payload.wm);
+      commit('updatexgt', payload.xgt);
+      commit('updatexgc', payload.xgc);
     },
   },
   getters: {
+    getlb: (state) => state.lb,
     getHMax: (state) => state.hMax,
     getHMin: (state) => state.hMin,
     getLoad: (state) => state.load,
@@ -77,6 +93,8 @@ const store = createStore({
     getUn: (state) => state.un,
     getVm: (state) => state.vm,
     getWm: (state) => state.wm,
+    getXgt: (state) => state.xgt,
+    getXgc: (state) => state.xgc,
   },
 });
 

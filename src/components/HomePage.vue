@@ -14,19 +14,21 @@
         <div class="line"></div>
       </div>
       <p>At DeephySolver, we're passionate about empowering engineers and professionals to work more efficiently and effectively. Our team is dedicated to providing innovative solutions that simplify complex calculations and make it easier to access the information you need. With a strong focus on user experience and accuracy, we strive to create tools that are both intuitive and reliable. Whether you're a seasoned engineer or just starting out, our goal is to help you streamline your workflow, reduce errors, and achieve your goals with confidence.</p>
-
+      <h1 class="t1">our services</h1>
+      <div class="line"></div>
       <div class="row">
+        
         <div class="col">
           <img src="../assets/unit.png" alt="">
           <h1>Unit Converter</h1>
           <p>Easily convert between different units of measurement with our user-friendly unit converter tool. Whether you need to switch from kilometers to miles, kilograms to pounds, or Celsius to Fahrenheit, our tool has got you covered. Simply enter the value you want to convert, select the units, and get instant, accurate results.</p>
-          <button><router-link to="">From Here</router-link></button>
+          <button><router-link to="/tool">From Here</router-link></button>
         </div>
         <div class="col">
           <img src="../assets/formula.jpg" alt="">
           <h1>Formula Library</h1>
           <p>You'll find a comprehensive collection of mathematical, scientific, and engineering formulas. Whether you're a student, a professional, or just someone with a curious mind, our library is designed to help you find the formulas you need quickly and easily. Explore various categories, including algebra, calculus, physics, chemistry, and more. Each formula is presented with clear explanations and examples to help you understand and apply them effectively.</p>
-          <button><router-link to="/tool">From Here</router-link></button>
+          <button><router-link to="">From Here</router-link></button>
         </div>
       </div>
     </section>
@@ -53,7 +55,7 @@ export default {
 header {
   width: 100vw;
   height: 100vh;
-  background-image: url(C:/Users/utilisateur/Documents/stage_work/vue_js/deephy/src/assets/b3.jpg);
+  background-image: url(C:\Users\utilisateur\Desktop\deephy\src\assets\background.jpg);
   background-position: bottom;
   background-repeat: no-repeat;
   background-size: cover;
@@ -98,7 +100,13 @@ section {
   width: 80%;
   transition: transform 0.3s ease;
 }
-
+ .t1{
+  font-size: 4vmin;
+  text-align: center;
+  
+  text-transform: uppercase;
+  margin-top: 60px;
+}
 .title {
   text-align: center;
   font-size: 4vmin;
@@ -120,12 +128,17 @@ section {
   align-items: center;
   margin: 20px;
   font-size: 20px;
+  margin-top: 6%;
 }
 
 .row .col img {
   width: 50px;
   height: 50px;
   object-fit: cover;
+}
+.row h1{
+  text-align: center;
+  text-transform: uppercase;
 }
 
 p {
