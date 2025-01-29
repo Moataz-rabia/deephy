@@ -8,19 +8,26 @@ To set up the project locally, follow these steps:
 
 ### Prerequisites
 
-Make sure you have Node.js and npm installed on your machine.
+Make sure you have Node.js and npm installed on your machine. You can download and install them from [Node.js official website](https://nodejs.org/).
 
 ### Installation
 
-1. Clone the repository:
+1. Install Vue CLI globally:
+    ```bash
+    npm install -g @vue/cli
+    ```
+
+2. Clone the repository:
     ```bash
     git clone <repository-url>
     ```
-2. Navigate to the project directory:
+
+3. Navigate to the project directory:
     ```bash
     cd deephy
     ```
-3. Install the dependencies:
+
+4. Install the dependencies:
     ```bash
     npm install
     ```
