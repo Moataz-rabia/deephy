@@ -2,7 +2,8 @@
     <div class="next">
         <div class="container">
         <div class="title">Calculation</div>
-        <label for="hd">saisir hauteur courant (HD): </label><input type="number" name="" id="hd" v-model="hd" value="hd">
+        <p style="border: none; width: 30%; margin: 0 auto;margin-bottom: 10px; background-color: rgba(241, 24, 24, 0.72);">Gardez à l'esprit que certains calculs nécessitent des calculs précédents, donc effectuez tous les calculs étape par étape.</p>
+        <label for="hd">saisir hauteur courant (HD): </label><input type="number" name="" placeholder="il faut saisir valeur de hauteur courante pour le  calcul" id="hd" v-model="hd" value="hd">
         <button class="calulatehd" @click="hdvaleur">valider</button>
 
         <div class="calculation-section">
@@ -22,10 +23,10 @@
             <div class="card">
                 <h3>calcule efforts</h3>
                 <div class="radio-poind">
-                <label for="rg">RG:</label><input type="radio" id="rg" name="e" v-model="selectedeffort" value="rg" >
-                <label for="rh">RH:</label><input type="radio" id="rh" name="e" v-model="selectedeffort" value="rh">
-                <label for="fg">FG:</label><input type="radio" id="fg" name="e" v-model="selectedeffort" value="fg">
-                <label for="fh">FH:</label><input type="radio" id="fh" name="e" v-model="selectedeffort" value="fh">
+                <label for="rg">RG:</label><input type="radio" id="rg" name="e" v-model="selectedeffort" title="il faut calculer point XG" value="rg" >
+                <label for="rh">RH:</label><input type="radio" id="rh" name="e" v-model="selectedeffort" title="il faut calculer  PT PC" value="rh">
+                <label for="fg">FG:</label><input type="radio" id="fg" name="e" v-model="selectedeffort" value="fge">
+                <label for="fh">FH:</label><input type="radio" id="fh" name="e" v-model="selectedeffort" title="il faut calculer  RH" value="fh">
                </div>
                 <p>Result: {{ resulteffort }}</p>
                 <button class="calculate" @click="calculeefforts">Calculer</button>
@@ -34,8 +35,8 @@
             <div class="card">
                 <h3>calcule angles</h3>
                 <div class="radio-poind">
-                  <label for="">alpha</label><input type="radio" id="alpha" name="a" v-model="selecteangle" value="alpha">
-                  <label for="">beta</label><input type="radio" id="beta" name="a" v-model="selecteangle" value="beta">
+                  <label for="">alpha</label><input type="radio" id="alpha" name="a" v-model="selecteangle" title="il faut saisir valeur de HD" value="alpha">
+                  <label for="">beta</label><input type="radio" id="beta" name="a" v-model="selecteangle" title="il faut calculer point Xm Ym" value="beta">
                 </div>
                 
                 <p>Result: {{ resultangle }}</p>
@@ -62,7 +63,7 @@
               </div>
                 <p>Result: {{ resultpoint }}</p>
                 <button class="calculate" @click="calculepoints">Calculer</button>
-                <button class="cancel" @click="cancelverin">Annuler</button>
+                <button class="cancel" @click="cancelpoint">Annuler</button>
               </div>
         </div>
     
@@ -81,19 +82,43 @@ export default {
       selectedeffort:'',
       selecteangle:'',
       selectpoint:'',
-      g: 9.81, 
+      hd:'',
+      g: 9.81,
+
+      pt:0,
+      pc:0,
+      pb1:0,
+      pb2:0,
+      
       result: '',
       resulteffort:'',
       resultverin:'',
-      hd:765,
       resultangle:'',
       resultpoint:'',
+
+      rg:0,
+      rh:0,
+      fge:0,
+      fh:0,
+
+      anglealpha:0,
+      anglebeta1:0,
+      anglebeta2:0,
+
       yd:0,
       xd:0,
       ye:0,
+      xe:0,
       xh:0,
+      yh:0,
       xn:0,
-      yn:0
+      yn:0,
+      xg:0,
+      yg:0,
+      xk:0,
+      yk:0,
+      xm:0,
+      ym:0
     };
 },
 /**
@@ -127,31 +152,32 @@ export default {
       this.hd = this.hMax;
       alert("HD value cannot exceed HMax value ");
     }
-    else if(this.hd<this.hMin || this.hd==='null'){
+    else if(this.hd<this.hMin ){
       this.hd=this.hMin;
       alert("hd inferieur a hauteur maximale")
     }
   },
+  
     calculepoid() {
-      let ptpoid,pcpoid,pb1poid,pb2poid;
+      
 
       if (this.selectedweight === 'pt') {
-        ptpoid=this.mt * this.g;
-        this.result = `Weight (PT): ${ptpoid} N`;
+        this.pt=this.mt * this.g;
+        this.result = `Weight (PT): ${this.pt} N`;
 
       } 
       else if (this.selectedweight === 'pc') {
-        pcpoid=this.mc * this.g;
-        this.result = `Weight (pc): ${pcpoid} N`;
+        this.pc=this.mc * this.g;
+        this.result = `Weight (pc): ${this.pc} N`;
 
       } 
       else if (this.selectedweight === 'pb1') {
-        pb1poid=this.fg * this.g;
-        this.result = `Weight (pb1): ${pb1poid} N`; 
+        this.pb1=this.fg * this.g;
+        this.result = `Weight (pb1): ${this.pb1} N`; 
       } 
       else if (this.selectedweight === 'pb2') {
-        pb2poid=this.he * this.g
-        this.result = `Weight (pb2): ${pb2poid} N`; 
+        this.pb2=this.he * this.g
+        this.result = `Weight (pb2): ${this.pb2} N`; 
       } 
       else {
         this.result = 'Please select a weight option.';
@@ -161,107 +187,129 @@ export default {
       this.selectedweight = '';
       this.result = '';
     },
-  
-    /* here i make some local variables to store  */
-    calculeefforts(){
-      let rgf,rhf,fgf,fhf;
 
-        if (this.selectedeffort === 'rg') {
-          rgf=(-(this.xgt)*this.ptpoid+this.xgc*this.pcpoid)/this.xg;
-          this.resulteffort = `effort (RG): ${rgf} N`;
-      } 
-
-      else if (this.selectedeffort === 'rh') {
-        rhf=(-this.rg)-(this.ptpoid)-(this.pcpoid);
-        this.resulteffort = `effort (RH): ${rhf} N`;
-
-      }
-
-      else if (this.selectedeffort === 'fg') {
-        fgf=-rgf;
-        this.resulteffort = `effort (FG): ${fgf} N`; 
-
-      } 
+ 
+    calculepoints(){
       
-      else if (this.selectedeffort === 'fh') {
-        fhf=-rhf;
-        this.resulteffort = `effort (FH): ${fhf} N`; 
 
-      } 
-      
-      else {
-        this.resulteffort = 'Please select an effort option.';
+      /* calcule de point D */
+      if(this.selectpoint==='pd'){
+        this.resultpoint=`coordonnées de point D (${this.xd},${this.xd})`;
       }
+      /* calcule de point E */
+
+      else if(this.selectpoint==='pe'){
+        this.xe=(this.lb)*Math.cos(this.anglealpha);
+        this.resultpoint=`coordonnées de point E (${this.xe},${this.ye})`;
+      }
+      /* calcule de point K */
+
+      else if(this.selectpoint==='pk'){
+        this.xk=this.xe/2;
+        this.yk=this.hd/2;
+        this.resultpoint=`coordonnées de point K (${this.xk},${this.yk}) si valeur xk   yk egale 0 n'oublie pas de saisir HD et calculer E `;
+      }
+      /* calcule de point H */
+
+      else if(this.selectpoint==='ph'){
+        this.yh=this.hd;
+        this.resultpoint=`coordonnées de point H (${this.xh}),(${this.yh})`;
+      }
+      /* calcule de point G */
+      
+      else if(this.selectpoint==='pg'){
+        this.xg=this.xe;
+        this.yg=this.hd;
+        this.resultpoint=`coordonnées de point G (${this.xg},${this.yg}) si valeur de xg=0 n'oublie pas de calculer point E `;
+      }
+      /* calcule de point M */
+
+      else if(this.selectpoint==='pm'){
+        this.xm=this.vm*Math.cos(-this.anglealpha)-this.wm*Math.sin(-this.anglealpha);
+        this.ym=this.yh+this.vm*Math.sin(-this.anglealpha)+this.wm*Math.cos(-this.anglealpha);
+        this.resultpoint=`coordonnées de point M (${this.xm},${this.ym}) si valeur de xm ou ym egale 0 n'oublie pas de calculer angle alpha `;
+      }
+      else if(this.selectpoint==='pn'){
+        this.resultpoint=`coordonnées de point N (${this.xn},${this.yn})  :  `;
+      }
+      
     },
+    /* calcule effort */
+    calculeefforts(){
+    /* controlle de saisir pour verifier si les valeurs existent ou non */
+    if (this.selectedeffort === 'rg') {
+        if (this.xgt !== undefined && this.pt !== undefined && this.xgc !== undefined && this.pc !== undefined && this.xg !== undefined) {
+            this.rg = ((-this.xgt * this.pt) + this.xgc * this.pc) / this.xg;
+            this.resulteffort = `effort (RG): ${this.rg} N`;
+        } else {
+            this.resulteffort = 'Invalid input values for RG calculation';
+        }
+    } 
+    else if (this.selectedeffort === 'rh') {
+        if (this.rg !== undefined && this.pt!== undefined && this.pc !== undefined) {
+            this.rh = (-this.rg) - (this.pt) - (this.pc);
+            this.resulteffort = `effort (RH): ${this.rh} N`;
+        } else {
+            this.resulteffort = 'Invalid input values for RH calculation';
+        }
+    }
+    else if (this.selectedeffort === 'fge') {
+        if (this.fge !== undefined) {
+            this.fge = -this.rg;
+            this.resulteffort = `effort (FG): ${this.fge} N`;
+        } else {
+            this.resulteffort = 'Invalid input values for FG calculation';
+        }
+    } 
+    else if (this.selectedeffort === 'fh') {
+        if (this.fh !== undefined) {
+            this.fh = -this.rh;
+            this.resulteffort = `effort (FH): ${this.fh} N`;
+        } else {
+            this.resulteffort = 'Invalid input values for FH calculation';
+        }
+    } 
+    else {
+        this.resulteffort = 'Please select an effort option.';
+    }
+},
 
     canceleffort(){
         this.selectedeffort='';
         this.resulteffort='';
     },
 
-   
+   /* calcule angles */
 
     calculerangle(){
-      let anglealpha;
-      if (this.selecteangle === 'alpha') {
-        anglealpha=Math.asin(this.hd/this.lb);
-        this.resultangle=`angle alpha est ${Math.asin(anglealpha)} `;
-      } 
-      else if(this.selecteangle==='beta'){
-        this.resultangle=`angle beta est ${Math.atan2(this.xn-this.ptxm,this.yn-this.ptym)}`
-      }
-      else {
-        this.resultangle = 'choisir un angle';
-      }
-    },
-    cancelangle(){
-      this.resultangle='';
-    },
-    calculepoints(){
-      let ptxg,ptyg,ptxe,ptyh,ptxk,ptyk,ptxm,ptym;
-
-      /* calcule de point D */
-      if(this.selectpoint==='pd'){
-        this.resultpoint=`coordonnées de point D (${this.xd}),(${this.xd})`;
-      }
-      /* calcule de point E */
-
-      else if(this.selectpoint==='pe'){
-        ptxe=(this.lb)*Math.cos(this.anglealpha);
-        this.resultpoint=`coordonnées de point E (${ptxe}),(${this.ye})`;
-      }
-      /* calcule de point K */
-
-      else if(this.selectpoint==='pk'){
-        ptxk=ptxe/2;
-        ptyk=this.hd/2;
-        this.resultpoint=`coordonnées de point K (${ptxk}),(${ptyk})`;
-      }
-      /* calcule de point H */
-
-      else if(this.selectpoint==='ph'){
-        ptyh=this.hd;
-        this.resultpoint=`coordonnées de point H (${this.xh}),(${ptyh})`;
-      }
-      /* calcule de point G */
-      
-      else if(this.selectpoint==='pg'){
-        ptxg=ptxe;
-        ptyg=this.hd;
-        this.resultpoint=`coordonnées de point G (${ptxg,ptyg})`;
-      }
-      /* calcule de point M */
-
-      else if(this.selectpoint==='pm'){
-        ptxm=this.vm*Math.cos(-this.anglealpha)-this.wm*Math.sin(-this.anglealpha);
-        ptym=ptyh+this.vm*Math.sin(-this.anglealpha)+this.wm*Math.cos(-this.anglealpha);
-        this.resultpoint=`coordonnées de point M (${ptxm,ptym}) <br>  `;
-      }
-      else if(this.selectpoint==='pn'){
-        this.resultpoint=`coordonnées de point N (${this.xn},${this.yn}) <br> formule :  `;
-      }
-      
+       
+    if (this.selecteangle === 'alpha') {
+        if (this.hd !== undefined && this.lb !== undefined) {
+            this.anglealpha=Math.asin(this.hd/this.lb)
+            this.resultangle = `angle alpha est ${(this.anglealpha)} `;
+        } else {
+            this.resultangle = 'Invalid input values for alpha angle calculation';
+        }
+    } 
+    else if (this.selecteangle === 'beta') {
+        if (this.xn !== undefined && this.xm !== undefined && this.yn !== undefined && this.ym !== undefined) {
+          this.anglebeta1=this.xn - this.xm;
+          this.anglebeta2=this.yn - this.ym ;
+            this.resultangle = `angle beta est ${Math.atan2(this.anglebeta1,this.anglebeta2)}`;
+        } else {
+            this.resultangle = 'Invalid input values for beta angle calculation';
+        }
     }
+    else {
+        this.resultangle = 'choisir un angle';
+    }
+},
+cancelangle(){
+        this.selecteangle='';
+        this.resultangle='';
+    },
+
+    
   }
 };
 

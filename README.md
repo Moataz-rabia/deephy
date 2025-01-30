@@ -91,3 +91,5 @@ src/
 test.html
 vue.config.js
 ```
+## you can add more units  to your converter 
+ just open toolsPage.vue component and add the unit optin  in 'fromunit' and 'tounit' 

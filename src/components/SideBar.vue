@@ -8,15 +8,15 @@ Cette ligne de code utilise la liaison d'attributs de Vue.js pour définir dynam
     <!-- Liens de navigation vers différentes pages. Voir le fichier index.js dans le répertoire router pour les définitions des routes. -->
     <nav>
       <ul>
-        <li><router-link to="/">Home</router-link></li>
-        <li><router-link to="/calcul">calcul</router-link></li>
-        <li><router-link to="/tool">Unit converter</router-link></li>
-        <li><router-link to="/About">About</router-link></li>
-        <li><router-link to="/contact">contact</router-link></li>
-        <li><router-link to="/libraryPage">formula library</router-link></li>
-
+        <li><router-link to="/"><i class="fas fa-home"></i> Home</router-link></li>
+        <li><router-link to="/calcul"><i class="fas fa-calculator"></i>  calcul</router-link></li>
+        <li><router-link to="/tool"><i class="fas fa-tools"></i> Unit converter</router-link></li>
+        <li><router-link to="/About"><i class="fas fa-info-circle"></i> About</router-link></li>
+        <li><router-link to="/contact"><i class="fas fa-envelope"></i> contact</router-link></li>
+        <li><router-link to="/libraryPage"><i class="fas fa-book"></i> formula library</router-link></li>
       </ul>
     </nav>
+    <img src="../assets/logo2.png" alt="">
   </div>
 </template>
 
@@ -48,7 +48,14 @@ export default {
 .sidebar.open {
   transform: translateX(0);
 }
-
+.sidebar img{
+  position: absolute;
+    bottom: 10px;
+    width: 100px;
+    border-radius: 50px;
+    
+    height: 100px;
+}
 nav ul {
   list-style: none;
   padding: 0;

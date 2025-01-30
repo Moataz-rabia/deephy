@@ -237,3 +237,98 @@ calculeefforts() {
     this.resulteffort = 'Please select an effort option.';
   }
 }
+
+
+  calculepoints(){
+      let ptxg,ptyg,ptxe,ptyh,ptxk,ptyk,ptxm,ptym;
+
+      /* calcule de point D */
+      if(this.selectpoint==='pd'){
+        this.resultpoint=`coordonnées de point D (${this.xd}),(${this.xd})`;
+      }
+      /* calcule de point E */
+
+      else if(this.selectpoint==='pe'){
+        ptxe=(this.lb)*Math.cos(this.angleAlphaRad);
+        this.resultpoint=`coordonnées de point E (${ptxe}),(${this.ye})`;
+      }
+      /* calcule de point K */
+
+      else if(this.selectpoint==='pk'){
+        ptxk=ptxe/2;
+        ptyk=this.hd/2;
+        this.resultpoint=`coordonnées de point K (${ptxk}),(${ptyk})`;
+      }
+      /* calcule de point H */
+
+      else if(this.selectpoint==='ph'){
+        ptyh=this.hd;
+        this.resultpoint=`coordonnées de point H (${this.xh}),(${ptyh})`;
+      }
+      /* calcule de point G */
+      
+      else if(this.selectpoint==='pg'){
+        ptxg=ptxe;
+        ptyg=this.hd;
+        this.resultpoint=`coordonnées de point G (${ptxg},${ptyg})`;
+      }
+      /* calcule de point M */
+
+      else if(this.selectpoint==='pm'){
+        ptxm=this.vm*Math.cos(-this.anglealpha)-this.wm*Math.sin(-this.anglealpha);
+        ptym=ptyh+this.vm*Math.sin(-this.anglealpha)+this.wm*Math.cos(-this.anglealpha);
+        this.resultpoint=`coordonnées de point M (${ptxm},${ptym}) <br>  `;
+      }
+      else if(this.selectpoint==='pn'){
+        this.resultpoint=`coordonnées de point N (${this.xn},${this.yn})  :  `;
+      }
+      
+ 
+ 
+ calculeefforts(){
+      let rgf,rhf,fgf,fhf;
+
+        if (this.selectedeffort === 'rg') {
+          rgf=((-this.xg*this.ptpoid)+this.xgc*this.pcpoid)/this.ptxg;
+          this.resulteffort = `effort (RG): ${rgf} N`;
+      } 
+
+      else if (this.selectedeffort === 'rh') {
+        rhf=(-this.rg)-(this.ptpoid)-(this.pcpoid);
+        this.resulteffort = `effort (RH): ${rhf} N`;
+
+      }
+
+      else if (this.selectedeffort === 'fg') {
+        fgf=-rgf;
+        this.resulteffort = `effort (FG): ${fgf} N`; 
+
+      } 
+      
+      else if (this.selectedeffort === 'fh') {
+        fhf=-rhf;
+        this.resulteffort = `effort (FH): ${fhf} N`; 
+
+      } 
+      
+      else {
+        this.resulteffort = 'Please select an effort option.';
+      }
+       calculerangle(){
+      let anglealpha;
+      if (this.selecteangle === 'alpha') {
+        let angle=this.hd/this.lb;
+        anglealpha=Math.asin(angle);
+
+        this.resultangle=`angle alpha est ${Math.asin(anglealpha)} `;
+      } 
+      else if(this.selecteangle==='beta'){
+        this.resultangle=`angle beta est ${Math.atan2(this.xn-this.ptxm,this.yn-this.ptym)}`
+      }
+      else {
+        this.resultangle = 'choisir un angle';
+      }
+    },
+    cancelangle(){
+      this.resultangle='';
+    },

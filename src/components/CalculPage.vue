@@ -133,22 +133,7 @@ import { mapActions, mapGetters } from 'vuex'
           return;
         }
         /* Mise à jour des données dans le store */
-        this.updateInputs( {
-        lb:this.lb,
-        hMax: this.hMax,
-        hMin: this.hMin,
-        load: this.load,
-        mt: this.mt,
-        mc: this.mc,
-        fg: this.fg,
-        he: this.he,
-        tn: this.tn,
-        un: this.un,
-        vm: this.vm,
-        wm: this.wm,
-        xgt:this.xgt,
-        xgc:this.xgc
-});
+        
         document.getElementById('p2').innerHTML='<p style="color:green"> BIEN</p>';
       },
       // Méthode pour naviguer vers la page suivante
@@ -165,9 +150,23 @@ import { mapActions, mapGetters } from 'vuex'
           document.getElementById("p3").innerHTML ="<p style='margin-top: 20px; text-align: center; color: red;font-weight: bold;margin-bottom:20px;' id='p2'>you can't go to the next page you should fill the inputs</p>";
           return false;
         }
+        this.updateInputs( {
+        lb:this.lb,
+        hMax: this.hMax,
+        hMin: this.hMin,
+        load: this.load,
+        mt: this.mt,
+        mc: this.mc,
+        fg: this.fg,
+        he: this.he,
+        tn: this.tn,
+        un: this.un,
+        vm: this.vm,
+        wm: this.wm,
+        xgt:this.xgt,
+        xgc:this.xgc
+});
       },
-     
-      
     },
     
   }
