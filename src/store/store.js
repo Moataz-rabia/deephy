@@ -93,8 +93,8 @@ const store = createStore({
     getUn: (state) => state.un,
     getVm: (state) => state.vm,
     getWm: (state) => state.wm,
-    getXgt: (state) => state.xgt,
-    getXgc: (state) => state.xgc,
+    getxgt: (state) => state.xgt,
+    getxgc: (state) => state.xgc,
   },
 });
 

@@ -39,18 +39,11 @@
       </div>
     </section>
   </div>
-  <footer>
-  <div class="footer-content">
-    <p>&copy; 2023 DeephySolver. All rights reserved.</p>
-    <div class="social-media">
-      <a href="https://www.twitter.com" >Twitter</a>
-      <a href="https://www.linkedin.com" >LinkedIn</a>
-    </div>
-  </div>
-</footer>
+  <FooterPage/>
 </template>
 
 <script>
+import FooterPage from './footerPage.vue';
 
 export default {
   name: 'HomePage',
@@ -60,6 +53,10 @@ export default {
       default: false,
     },
   },
+  components:{
+    FooterPage
+
+  }
 };
 </script>
 
@@ -186,27 +183,5 @@ button:hover {
 button:active {
   transform: scale(0.9);
 }
-.footer-content {
-  background-color: #333;
-  color: #fff;
-  text-align: center;
-  padding: 20px 0;
-}
-.footer-content p {
-  margin: 0;
-}
 
-.social-media {
-  margin-top: 10px;
-}
-
-.social-media a {
-  color: #fff;
-  margin: 0 10px;
-  text-decoration: none;
-}
-
-.social-media a:hover {
-  text-decoration: underline;
-}
 </style>

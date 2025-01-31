@@ -172,13 +172,14 @@ import { mapActions, mapGetters } from 'vuex'
   }
   </script>
   <style scoped>
+  
   .container {
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100%;
-      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('C:\Users\utilisateur\Desktop\deephy\src\assets\b3.jpg') no-repeat center center /cover fixed;
+      background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('C:\Users\utilisateur\Desktop\deephy\src\assets\website.s_framed_intro_default_image.jpg') no-repeat center center /cover fixed;
       scroll-behavior: smooth;
       color: white;
       backdrop-filter: blur(10px);

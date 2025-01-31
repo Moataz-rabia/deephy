@@ -69,7 +69,6 @@ jsconfig.json
 package.json
 public/
     index.html
-    note.txt
 README.md
 src/
     App.vue
@@ -83,6 +82,7 @@ src/
         SideBar.vue
         ToolsPage.vue
         libraryPage.vue
+        footerPage.vue
     main.js
     router/
         index.js

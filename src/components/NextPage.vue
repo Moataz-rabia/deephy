@@ -9,6 +9,7 @@
         <div class="calculation-section">
             <div class="card">
                 <h3>calcule poids</h3>
+                <p id="pfvaleur"></p>
                <div class="radio-poind">
                 <label for="pt">PT:</label><input type="radio" v-model="selectedweight" id="pt" name="p" value="pt">
                 <label for="pt">PC:</label><input type="radio" v-model="selectedweight" id="pc" name="p" value="pc">
@@ -22,6 +23,8 @@
             </div>
             <div class="card">
                 <h3>calcule efforts</h3>
+                <p id="pfvaleur"></p>
+
                 <div class="radio-poind">
                 <label for="rg">RG:</label><input type="radio" id="rg" name="e" v-model="selectedeffort" title="il faut calculer point XG" value="rg" >
                 <label for="rh">RH:</label><input type="radio" id="rh" name="e" v-model="selectedeffort" title="il faut calculer  PT PC" value="rh">
@@ -34,6 +37,8 @@
             </div>
             <div class="card">
                 <h3>calcule angles</h3>
+                <p id="pfvaleur"> {{ valeurstore }}</p>
+
                 <div class="radio-poind">
                   <label for="">alpha</label><input type="radio" id="alpha" name="a" v-model="selecteangle" title="il faut saisir valeur de HD" value="alpha">
                   <label for="">beta</label><input type="radio" id="beta" name="a" v-model="selecteangle" title="il faut calculer point Xm Ym" value="beta">
@@ -45,12 +50,15 @@
             </div>
             <div class="card">
                 <h3>calculer longueur de vérin</h3>
+                <p id="pfvaleur"> </p>
+
                 <p>Result: {{ resultverin }}</p>
                 <button class="calculate" @click="calculeverin">Calculer</button>
                 <button class="cancel" @click="cancelverin">Annuler</button>
             </div>
             <div class="card">
                 <h3>calcule des points</h3>
+                <p id="pfvaleur"></p>
                 <div class="radio-poind">
                 <label for="pd">D:</label><input type="radio" v-model="selectpoint" id="pd" name="p" value="pd">
                 <label for="pe">E:</label><input type="radio" v-model="selectpoint" id="pe" name="p" value="pe">
@@ -84,7 +92,7 @@ export default {
       selectpoint:'',
       hd:'',
       g: 9.81,
-
+      valeurstore:'',
       pt:0,
       pc:0,
       pb1:0,
@@ -160,23 +168,24 @@ export default {
   
     calculepoid() {
       
-
+      
       if (this.selectedweight === 'pt') {
-        this.pt=this.mt * this.g;
+        this.valeurstore=` valeur sauvgarde ${this.mt},${this.mc},${this.fg},${this.he}`;
+        this.pt=-(this.mt * this.g);
         this.result = `Weight (PT): ${this.pt} N`;
 
       } 
       else if (this.selectedweight === 'pc') {
-        this.pc=this.mc * this.g;
+        this.pc=-(this.mc * this.g);
         this.result = `Weight (pc): ${this.pc} N`;
 
       } 
       else if (this.selectedweight === 'pb1') {
-        this.pb1=this.fg * this.g;
+        this.pb1=-(this.fg * this.g);
         this.result = `Weight (pb1): ${this.pb1} N`; 
       } 
       else if (this.selectedweight === 'pb2') {
-        this.pb2=this.he * this.g
+        this.pb2=-(this.he * this.g);
         this.result = `Weight (pb2): ${this.pb2} N`; 
       } 
       else {
@@ -187,7 +196,9 @@ export default {
       this.selectedweight = '';
       this.result = '';
     },
-
+    calculeverin(){
+        this.resultverin=` longueur de verin est  ${Math.sqrt((this.xn-this.xm)**2+(this.yn-this.ym)**2)}  `;
+      },
  
     calculepoints(){
       
@@ -234,20 +245,24 @@ export default {
       }
       
     },
+    cancelpoint(){
+      this.selectpoint='';
+      this.resultpoint='';
+    },
     /* calcule effort */
     calculeefforts(){
     /* controlle de saisir pour verifier si les valeurs existent ou non */
+
     if (this.selectedeffort === 'rg') {
-        if (this.xgt !== undefined && this.pt !== undefined && this.xgc !== undefined && this.pc !== undefined && this.xg !== undefined) {
-            this.rg = ((-this.xgt * this.pt) + this.xgc * this.pc) / this.xg;
-            this.resulteffort = `effort (RG): ${this.rg} N`;
-        } else {
-            this.resulteffort = 'Invalid input values for RG calculation';
-        }
-    } 
+        console.log('xgt:', this.xgt, 'pt:', this.pt, 'xgc:', this.xgc);
+          this.rg =(-(this.xgt*this.pt+this.xgc*20))/1300;
+          this.resulteffort = `effort (RG): ${this.rg} N`;
+  
+  
+}
     else if (this.selectedeffort === 'rh') {
         if (this.rg !== undefined && this.pt!== undefined && this.pc !== undefined) {
-            this.rh = (-this.rg) - (this.pt) - (this.pc);
+            this.rh = -this.rg - this.pt - this.pc;
             this.resulteffort = `effort (RH): ${this.rh} N`;
         } else {
             this.resulteffort = 'Invalid input values for RH calculation';
@@ -295,7 +310,7 @@ export default {
         if (this.xn !== undefined && this.xm !== undefined && this.yn !== undefined && this.ym !== undefined) {
           this.anglebeta1=this.xn - this.xm;
           this.anglebeta2=this.yn - this.ym ;
-            this.resultangle = `angle beta est ${Math.atan2(this.anglebeta1,this.anglebeta2)}`;
+            this.resultangle = `angle beta est ${Math.atan2(this.anglebeta1,this.anglebeta2)} n'oublie pas de calculer les coordonnes de point M`;
         } else {
             this.resultangle = 'Invalid input values for beta angle calculation';
         }
@@ -319,13 +334,15 @@ cancelangle(){
 .next{
   margin: 0;
   font-family: Arial, sans-serif;
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../assets/background.jpg') no-repeat center center fixed;
+  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('C:\Users\utilisateur\Desktop\deephy\src\assets\website.s_framed_intro_default_image.jpg') no-repeat center center /cover fixed;
   background-size: cover;
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  min-height: 100vh;
+  border: 4px solid yellow;
+
 }
 p{
     width: 100%;
@@ -340,6 +357,7 @@ p{
 .container {
   text-align: center;
   width: 80%;
+
 }
 
 .title {
@@ -352,6 +370,7 @@ p{
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+  
 }
 
 .card {
@@ -361,7 +380,7 @@ p{
   width: 500px;
   margin: 15px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  height: 300px;
+  height: 400px;
 }
 
 .card h3 {
@@ -376,6 +395,10 @@ p{
   margin-bottom: 5px;
   border-radius: 5px;
   font-size: 1em;
+}
+
+input[title] {
+  color: red;
 }
 
 .card button {
@@ -446,5 +469,10 @@ input::placeholder{
   background: #ff3f1f;
   transform: scale(1.1);
   color: white;
+}
+#pfvaleur{
+  border: none;
+  border: red 2px solid;
+  height: 20%;
 }
 </style>
