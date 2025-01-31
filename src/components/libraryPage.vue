@@ -16,7 +16,7 @@ export default{
     justify-content: center;
     
     align-items: center;
-    background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),  url(../assets/background.jpg) no-repeat center/cover;
+    background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),  url('') no-repeat center/cover;
 }
 
 .card {

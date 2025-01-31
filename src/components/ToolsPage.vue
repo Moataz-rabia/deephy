@@ -202,7 +202,7 @@ export default {
     height: 100%;
     width: 100%;
       margin: 0;
-      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('C:\Users\utilisateur\Desktop\deephy\src\assets\b3.jpg') no-repeat center center fixed;
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('') no-repeat center center fixed;
       padding: 0;
       font-family: Arial, sans-serif;
       background-size: cover;

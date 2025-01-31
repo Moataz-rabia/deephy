@@ -334,7 +334,7 @@ cancelangle(){
 .next{
   margin: 0;
   font-family: Arial, sans-serif;
-  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('C:\Users\utilisateur\Desktop\deephy\src\assets\website.s_framed_intro_default_image.jpg') no-repeat center center /cover fixed;
+  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('') no-repeat center center /cover fixed;
   background-size: cover;
   color: white;
   display: flex;

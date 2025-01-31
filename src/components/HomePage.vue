@@ -25,13 +25,13 @@
           <button><router-link to="/tool">From Here</router-link></button>
         </div>
         <div class="col">
-          <img src="../assets/formula.jpg" alt="">
+          <img src="" alt="">
           <h1>Formula Library</h1>
           <p>You'll find a comprehensive collection of mathematical, scientific, and engineering formulas. Whether you're a student, a professional, or just someone with a curious mind, our library is designed to help you find the formulas you need quickly and easily. Explore various categories, including algebra, calculus, physics, chemistry, and more. Each formula is presented with clear explanations and examples to help you understand and apply them effectively.</p>
           <button><router-link to="/libraryPage">From Here</router-link></button>
         </div>
         <div class="col">
-          <img src="../assets/calcl.png" alt="">
+          <img src="" alt="">
           <h1>calcul</h1>
           <p>Our company offers a range of services, including a calculation page designed to facilitate data input and calculation for both clients and engineers. This page streamlines the process of gathering and validating technical information, ensuring accuracy and efficiency in our operations.</p>
           <button><router-link to="/calcul">From Here</router-link></button>
@@ -67,7 +67,7 @@ export default {
 header {
   width: 100vw;
   height: 100vh;
-  background-image: url(C:\Users\utilisateur\Desktop\deephy\src\assets\background.jpg);
+  background-image: url('');
   background-position: bottom;
   background-repeat: no-repeat;
   background-size: cover;
